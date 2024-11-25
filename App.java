@@ -60,7 +60,7 @@ class Film {
     }
 
     public void bilgiGoster() {
-        System.out.println("Film Adı: " + ad + ", Süresi: " + sure + " dakika, Türü: " + tur);
+        System.out.println("Film Adi: " + ad + ", Süresi: " + sure + " dakika, Türü: " + tur);
     }
 }
 
@@ -187,8 +187,8 @@ public class Main {
             System.out.println("1. Yeni Müşteri Ekle");
             System.out.println("2. Filmleri ve Salonları Listele");
             System.out.println("3. Salon Müşterilerini Listele");
-            System.out.println("4. Çıkış");
-            System.out.print("Seçiminizi yapın: ");
+            System.out.println("4. Çikis");
+            System.out.print("Seçiminizi yapin: ");
             int secim = scanner.nextInt();
             scanner.nextLine(); // Enter'ı tüketmek için
 
