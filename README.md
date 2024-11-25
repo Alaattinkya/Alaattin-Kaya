@@ -53,6 +53,4 @@ Sinema Müşteri Kayıt Sistemi, bir sinema işletmesinin müşteri kayıtların
 
 ---
 
-## Örnek Çalışma
-### Filmleri ve Salonları Listele
 
