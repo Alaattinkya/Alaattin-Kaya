@@ -187,7 +187,7 @@ public class Main {
             System.out.println("1. Yeni Müşteri Ekle");
             System.out.println("2. Filmleri ve Salonları Listele");
             System.out.println("3. Salon Müşterilerini Listele");
-            System.out.println("4. Çikis");
+            System.out.println("4. Çikiş");
             System.out.print("Seçiminizi yapin: ");
             int secim = scanner.nextInt();
             scanner.nextLine(); // Enter'ı tüketmek için
