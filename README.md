@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/18361728/README.md)# Sinema Sistemi Uygulaması
+# Sinema Sistemi Uygulaması
 
 ## Proje Özeti
 Bu proje, bir sinema sisteminin film, salon ve müşteri yönetimini sağlayan bir simülasyondur. Veriler JSON dosyalarında saklanır ve her çalışma sırasında bu dosyalardan okunarak işlenir. Programın amacı, sinema salonlarının yönetimini kolaylaştırmak ve müşteri bilgilerini takip etmektir.
