@@ -1,6 +1,8 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.*;
+import java.util.*;
 
 // Temel Sınıf
 abstract class BaseEntity {
@@ -99,31 +101,63 @@ class Salon extends BaseEntity {
     }
 }
 
+// JSON Yardımcı Sınıfı
+class JsonUtils {
+    private static final Gson gson = new Gson();
+
+    public static <T> void writeToJsonFile(String fileName, List<T> data) {
+        try (Writer writer = new FileWriter(fileName)) {
+            gson.toJson(data, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static <T> List<T> readFromJsonFile(String fileName, Class<T> clazz) {
+        try (Reader reader = new FileReader(fileName)) {
+            return gson.fromJson(reader, TypeToken.getParameterized(List.class, clazz).getType());
+        } catch (FileNotFoundException e) {
+            return new ArrayList<>();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+}
+
 // Sinema Sistemi
 class SinemaSistemi {
+    private static final String MUSTERI_FILE = "Musteri.json";
+    private static final String FILM_FILE = "Film.json";
+    private static final String SALON_FILE = "Salon.json";
+
     private List<Musteri> musteriler;
     private List<Film> filmler;
     private List<Salon> salonlar;
 
     public SinemaSistemi() {
-        this.musteriler = new ArrayList<>();
-        this.filmler = new ArrayList<>();
-        this.salonlar = new ArrayList<>();
+        this.musteriler = JsonUtils.readFromJsonFile(MUSTERI_FILE, Musteri.class);
+        this.filmler = JsonUtils.readFromJsonFile(FILM_FILE, Film.class);
+        this.salonlar = JsonUtils.readFromJsonFile(SALON_FILE, Salon.class);
     }
 
     public void yeniMusteriEkle(Musteri musteri, int salonIndex) {
         musteriler.add(musteri);
+        JsonUtils.writeToJsonFile(MUSTERI_FILE, musteriler);
         salonlar.get(salonIndex).musteriEkle(musteri);
+        JsonUtils.writeToJsonFile(SALON_FILE, salonlar);
         System.out.println("Yeni müşteri eklendi: " + musteri.getName() + ", Salon: " + salonlar.get(salonIndex).getName() + ", Film: " + salonlar.get(salonIndex).getFilm().getAd());
     }
 
     public void yeniFilmEkle(Film film) {
         filmler.add(film);
+        JsonUtils.writeToJsonFile(FILM_FILE, filmler);
         System.out.println("Yeni film eklendi: " + film.getAd());
     }
 
     public void yeniSalonEkle(Salon salon) {
         salonlar.add(salon);
+        JsonUtils.writeToJsonFile(SALON_FILE, salonlar);
         System.out.println("Yeni salon eklendi: " + salon.getName());
     }
 
@@ -187,8 +221,8 @@ public class Main {
             System.out.println("1. Yeni Müşteri Ekle");
             System.out.println("2. Filmleri ve Salonları Listele");
             System.out.println("3. Salon Müşterilerini Listele");
-            System.out.println("4. Çikiş");
-            System.out.print("Seçiminizi yapin: ");
+            System.out.println("4. Çıkış");
+            System.out.print("Seçiminizi yapın: ");
             int secim = scanner.nextInt();
             scanner.nextLine(); // Enter'ı tüketmek için
 
